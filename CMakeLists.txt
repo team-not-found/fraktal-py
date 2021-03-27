@@ -8,7 +8,7 @@ add_subdirectory(pybind11)
 pybind11_add_module(fraktal_py ${CMAKE_CURRENT_SOURCE_DIR}/fraktal_py/fraktal_py.cpp)
 
 target_link_libraries(fraktal_py
-    PRIVATE fraktal
+    PRIVATE static-fraktal
 )
 
 # EXAMPLE_VERSION_INFO is defined by setup.py and passed into the C++ code as a

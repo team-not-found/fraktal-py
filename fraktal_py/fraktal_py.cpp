@@ -1,6 +1,6 @@
 #include <pybind11/pybind11.h>
 
-#include "fraktal.hpp"
+#include "dummy.hpp"
 
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
@@ -9,10 +9,11 @@
 namespace py = pybind11;
 
 PYBIND11_MODULE(fraktal_py, m) {
-    py::class_<Fraktal>(m, "Fraktal")
-        .def(py::init<>())
-        .def("hello", &Fraktal::hello);
+    // py::class_<Fraktal>(m, "Fraktal")
+    //     .def(py::init<>())
+    //     .def("hello", &Fraktal::hello);
 
+    m.def("hello", &hello);
     m.doc() = R"pbdoc(
             Pybind11 example plugin
             -----------------------
