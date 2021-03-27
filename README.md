@@ -14,3 +14,5 @@ import fraktal_py
 
 ### How to update our own dependency
 Navigate to fraktal and then git pull origin master.
+
+![Alt text](fern.png?raw=true "Screenshot taken of the Fern fractal")
