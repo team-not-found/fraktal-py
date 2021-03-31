@@ -2,8 +2,8 @@
 
 #include<string>
 
-#include "dummy.hpp"
-#include "fern.hpp"
+#include "dummy/dummy.hpp"
+#include "fern/fern.hpp"
 #include "utility/matrix2d.hpp"
 
 #define STRINGIFY(x) #x
@@ -14,23 +14,27 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(fraktal_py, m) {
 
-    py::class_<Matrix2d<double>>(m, "Matrix2d")
+    py::class_<Matrix2d<double>>(m, "Matrix2d", py::buffer_protocol())
         .def(py::init<>())
         .def(py::init<int, int>())
         .def("print", &Matrix2d<double>::print)
-        .def("__call__", 
-            [](Matrix2d<double> &m, int i, int j) {
-                return m(i, j);
-            })
-        .def("set", 
-            [](Matrix2d<double> &m, int i, int j, double value) {
-                m(i, j) = value;
-            });
+        .def_buffer([](Matrix2d<double> &matrix) -> py::buffer_info {
+            return py::buffer_info(
+                matrix.getData(),                               /* Pointer to buffer */
+                sizeof(double),                          /* Size of one scalar */
+                py::format_descriptor<double>::format(), /* Python struct-style format descriptor */
+                2,                                      /* Number of dimensions */
+                { matrix.getN(), matrix.getM() },                 /* Buffer dimensions */
+                { sizeof(double) * matrix.getM(),             /* Strides (in bytes) for each index */
+                sizeof(double) }
+            );
+        });
 
     py::class_<Fern>(m, "Fern")
         .def(py::init<>())
         .def_readwrite("nX", &Fern::nX)
         .def_readwrite("nY", &Fern::nY)
+        .def_readwrite("density_map", &Fern::densityMap)
         .def("generateFractal", &Fern::generateFractal)
         .def("saveFractal", &Fern::saveFractal);
 
