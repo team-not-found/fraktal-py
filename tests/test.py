@@ -20,7 +20,7 @@ def timer(func):
 
 @timer
 def generate_fractal(fern):
-    fern.generateFractal(300, -4, 0, 4, 10, 200000000)
+    fern.generateFractal(1920, 1080, 100000000)
 
 
 @timer
