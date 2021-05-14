@@ -6,6 +6,9 @@ You may need additional python packages to run the tests.
 
 ### How to install
 git clone --recursive git@github.com:team-not-found/fraktal-py.git <br/><br/>
+
+also run the update-fraktal.sh script
+
 pip install ./fraktal-py
 
 ### How to use
